@@ -1,8 +1,11 @@
 /* eslint-disable */
 
 import {
+  Avatar,
   Box,
+  Button,
   Flex,
+  Progress,
   Table,
   Tbody,
   Td,
@@ -19,18 +22,17 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import Card from 'components/card/Card';
-import Menu from 'components/menu/MainMenu';
 import * as React from 'react';
 
 const columnHelper = createColumnHelper();
 
-const ComplexTable = (props) => {
+const TableTopCreators = (props) => {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState([]);
   const textColor = useColorModeValue('secondaryGray.900', 'white');
+  const textColorSecondary = useColorModeValue('secondaryGray.600', 'white');
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
-
+  let defaultData = tableData;
   const columns = [
     columnHelper.accessor('name', {
       id: 'name',
@@ -46,14 +48,15 @@ const ComplexTable = (props) => {
       ),
       cell: (info) => (
         <Flex align="center">
-          <Text color={textColor} fontSize="sm" fontWeight="700">
-            {info.getValue()}
+          <Avatar src={info.getValue()[1]} w="30px" h="30px" me="8px" />
+          <Text color={textColor} fontSize="sm" fontWeight="600">
+            {info.getValue()[0]}
           </Text>
         </Flex>
       ),
     }),
-    columnHelper.accessor('cost', {
-      id: 'cost',
+    columnHelper.accessor('artworks', {
+      id: 'artworks',
       header: () => (
         <Text
           justifyContent="space-between"
@@ -61,21 +64,43 @@ const ComplexTable = (props) => {
           fontSize={{ sm: '10px', lg: '12px' }}
           color="gray.400"
         >
-          COST
+          ARTWORKS
+        </Text>
+      ),
+      cell: (info) => (
+        <Text color={textColorSecondary} fontSize="sm" fontWeight="500">
+          {info.getValue()}
+        </Text>
+      ),
+    }),
+    columnHelper.accessor('rating', {
+      id: 'rating',
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: '10px', lg: '12px' }}
+          color="gray.400"
+        >
+          RATING
         </Text>
       ),
       cell: (info) => (
         <Flex align="center">
-          <Text color={textColor} fontSize="sm" fontWeight="700">
-            {info.getValue()}
-          </Text>
+          <Progress
+            variant="table"
+            colorScheme="brandScheme"
+            h="8px"
+            w="108px"
+            value={info.getValue()}
+          />
         </Flex>
       ),
     }),
   ];
-
+  const [data, setData] = React.useState(() => [...defaultData]);
   const table = useReactTable({
-    data: tableData,
+    data,
     columns,
     state: {
       sorting,
@@ -86,25 +111,27 @@ const ComplexTable = (props) => {
     debugTable: true,
   });
   return (
-    <Card
-      flexDirection="column"
+    <Flex
+      direction="column"
       w="100%"
-      px="0px"
       overflowX={{ sm: 'scroll', lg: 'hidden' }}
     >
-      <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
-        <Text
-          color={textColor}
-          fontSize="22px"
-          fontWeight="700"
-          lineHeight="100%"
-        >
-          Complex Table
+      <Flex
+        align={{ sm: 'flex-start', lg: 'center' }}
+        justify="space-between"
+        w="100%"
+        px="22px"
+        pb="20px"
+        mb="10px"
+        boxShadow="0px 40px 58px -20px rgba(112, 144, 176, 0.26)"
+      >
+        <Text color={textColor} fontSize="xl" fontWeight="600">
+          Top Creators
         </Text>
-        <Menu />
+        <Button variant="action">See all</Button>
       </Flex>
       <Box>
-        <Table variant="simple" color="gray.500" mb="24px" mt="12px">
+        <Table variant="simple" color="gray.500" mt="12px">
           <Thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <Tr key={headerGroup.id}>
@@ -142,7 +169,7 @@ const ComplexTable = (props) => {
           <Tbody>
             {table
               .getRowModel()
-              .rows.slice(0, 5)
+              .rows.slice(0, 11)
               .map((row) => {
                 return (
                   <Tr key={row.id}>
@@ -167,8 +194,8 @@ const ComplexTable = (props) => {
           </Tbody>
         </Table>
       </Box>
-    </Card>
+    </Flex>
   );
 };
 
-export default ComplexTable;
+export default TableTopCreators;

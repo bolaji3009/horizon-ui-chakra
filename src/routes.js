@@ -15,6 +15,7 @@ import NFTMarketplace from 'views/admin/marketplace';
 import Profile from 'views/admin/profile';
 import DataTables from 'views/admin/dataTables';
 import RTL from 'views/admin/rtl';
+import PlanManagement from 'views/admin/planManagement'; //Import the new component
 
 // Auth Imports
 import SignInCentered from 'views/auth/signIn';
@@ -55,6 +56,13 @@ const routes = [
     path: '/profile',
     icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
     component: <Profile />,
+  },
+  {
+    name: 'Plan Management',
+    layout: '/admin',
+    path: '/plan-management',
+    icon: <Icon as={MdOutlineShoppingCart} width="20px" height="20px" color="inherit" />,
+    component: <PlanManagement />,
   },
   {
     name: 'Sign In',

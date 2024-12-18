@@ -3,7 +3,7 @@ import { Avatar, Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "components/card/Card.js";
 import React from "react";
 
-export default function Banner(props) {
+const ProfileBanner = (props) => {
   const { banner, avatar, name, job, posts, followers, following } = props;
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
@@ -64,4 +64,6 @@ export default function Banner(props) {
       </Flex>
     </Card>
   );
-}
+};
+
+export default ProfileBanner;

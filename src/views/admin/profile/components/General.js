@@ -1,69 +1,70 @@
-// Chakra imports
-import { SimpleGrid, Text, useColorModeValue } from "@chakra-ui/react";
-// Custom components
-import Card from "components/card/Card.js";
+import {
+  Flex,
+  Grid,
+  Icon,
+  Progress,
+  SimpleGrid,
+  Spacer,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import IconBox from "components/icons/IconBox";
 import React from "react";
-import Information from "views/admin/profile/components/Information";
+import { FaCube, FaPenFancy } from "react-icons/fa";
+import { IoDocumentsSharp } from "react-icons/io5";
+import Information from "components/reusable/Information";
+import { MdGroups, MdInfoOutline } from "react-icons/md";
 
-// Assets
-export default function GeneralInformation(props) {
+const General = (props) => {
   const { ...rest } = props;
+
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.400";
-  const cardShadow = useColorModeValue(
-    "0px 18px 40px rgba(112, 144, 176, 0.12)",
-    "unset"
-  );
+  const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.200");
   return (
-    <Card mb={{ base: "0px", "2xl": "20px" }} {...rest}>
-      <Text
-        color={textColorPrimary}
-        fontWeight='bold'
-        fontSize='2xl'
-        mt='10px'
-        mb='4px'>
-        General Information
-      </Text>
-      <Text color={textColorSecondary} fontSize='md' me='26px' mb='40px'>
-        As we live, our hearts turn colder. Cause pain is what we go through as
-        we become older. We get insulted by others, lose trust for those others.
-        We get back stabbed by friends. It becomes harder for us to give others
-        a hand. We get our heart broken by people we love, even that we give
-        them all...
-      </Text>
-      <SimpleGrid columns='2' gap='20px'>
-        <Information
-          boxShadow={cardShadow}
-          title='Education'
-          value='Stanford University'
-        />
-        <Information
-          boxShadow={cardShadow}
-          title='Languages'
-          value='English, Spanish, Italian'
-        />
-        <Information
-          boxShadow={cardShadow}
-          title='Department'
-          value='Product Design'
-        />
-        <Information
-          boxShadow={cardShadow}
-          title='Work History'
-          value='Google, Facebook'
-        />
-        <Information
-          boxShadow={cardShadow}
-          title='Organization'
-          value='Simmmple Web LLC'
-        />
-        <Information
-          boxShadow={cardShadow}
-          title='Birthday'
-          value='20 July 1986'
-        />
-      </SimpleGrid>
-    </Card>
+    <Grid
+      templateColumns={{ base: "repeat(1, 1fr)", lg: "repeat(3, 1fr)" }}
+      gap='20px'
+      {...rest}>
+      <Information
+        boxShadow={"unset !important"}
+        border={"unset !important"}
+        title='Education'
+        value='Stanford University'
+      />
+      <Information
+        boxShadow={"unset !important"}
+        border={"unset !important"}
+        title='Languages'
+        value='English, Spanish, Italian'
+      />
+      <Information
+        boxShadow={"unset !important"}
+        border={"unset !important"}
+        title='Department'
+        value='Product Design'
+      />
+      <Information
+        boxShadow={"unset !important"}
+        border={"unset !important"}
+        title='Work History'
+        value='Google, Facebook'
+      />
+      <Information
+        boxShadow={"unset !important"}
+        border={"unset !important"}
+        title='Organization'
+        value='Horizon UI'
+      />
+      <Information
+        boxShadow={"unset !important"}
+        border={"unset !important"}
+        title='Birthday'
+        value='20 July 1986'
+      />
+    </Grid>
   );
-}
+};
+
+export default General;

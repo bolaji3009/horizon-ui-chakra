@@ -4,7 +4,7 @@ import { Button, Flex, Input, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import { useDropzone } from "react-dropzone";
 
-function Dropzone(props) {
+const Dropzone = (props) => {
   const { content, ...rest } = props;
   const { getRootProps, getInputProps } = useDropzone();
   const bg = useColorModeValue("gray.100", "navy.700");
@@ -27,6 +27,6 @@ function Dropzone(props) {
       <Button variant='no-effects'>{content}</Button>
     </Flex>
   );
-}
+};
 
 export default Dropzone;

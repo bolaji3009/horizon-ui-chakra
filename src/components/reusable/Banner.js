@@ -4,9 +4,9 @@ import React from "react";
 import { Button, Flex, Link, Text } from "@chakra-ui/react";
 
 // Assets
-import banner from "assets/img/nfts/NftBanner1.png";
+import banner from "assets/img/profile/ProfileBanner.png";
 
-export default function Banner() {
+const Banner = () => {
   // Chakra Color Mode
   return (
     <Flex
@@ -30,7 +30,7 @@ export default function Banner() {
         }}
         fontWeight='700'
         lineHeight={{ base: "32px", md: "42px" }}>
-        Discover, collect, and sell extraordinary NFTs
+        Platform Overview
       </Text>
       <Text
         fontSize='md'
@@ -46,8 +46,7 @@ export default function Banner() {
         fontWeight='500'
         mb='40px'
         lineHeight='28px'>
-        Enter in this creative world. Discover now the latest NFTs or start
-        creating your own!
+        See all your data, statistics and more.
       </Text>
       <Flex align='center'>
         <Button
@@ -60,7 +59,7 @@ export default function Banner() {
           fontSize='14px'
           py='20px'
           px='27'
-          me='38px'>
+          me='38px' >
           Discover now
         </Button>
         <Link>
@@ -72,3 +71,5 @@ export default function Banner() {
     </Flex>
   );
 }
+
+export default Banner;

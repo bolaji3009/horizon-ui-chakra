@@ -1,10 +1,9 @@
 /* eslint-disable */
 
 import {
-  Avatar,
   Box,
-  Button,
   Flex,
+  Icon,
   Progress,
   Table,
   Tbody,
@@ -22,15 +21,20 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+// Custom components
+import Card from 'components/card/Card';
+import Menu from 'components/menu/MainMenu';
 import * as React from 'react';
+// Assets
+import { MdCancel, MdCheckCircle, MdOutlineError } from 'react-icons/md';
 
 const columnHelper = createColumnHelper();
 
-export default function TopCreatorTable(props) {
+// const columns = columnsDataCheck;
+const ComplexTable = (props) => {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState([]);
   const textColor = useColorModeValue('secondaryGray.900', 'white');
-  const textColorSecondary = useColorModeValue('secondaryGray.600', 'white');
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
   let defaultData = tableData;
   const columns = [
@@ -48,15 +52,14 @@ export default function TopCreatorTable(props) {
       ),
       cell: (info) => (
         <Flex align="center">
-          <Avatar src={info.getValue()[1]} w="30px" h="30px" me="8px" />
-          <Text color={textColor} fontSize="sm" fontWeight="600">
-            {info.getValue()[0]}
+          <Text color={textColor} fontSize="sm" fontWeight="700">
+            {info.getValue()}
           </Text>
         </Flex>
       ),
     }),
-    columnHelper.accessor('artworks', {
-      id: 'artworks',
+    columnHelper.accessor('status', {
+      id: 'status',
       header: () => (
         <Text
           justifyContent="space-between"
@@ -64,17 +67,60 @@ export default function TopCreatorTable(props) {
           fontSize={{ sm: '10px', lg: '12px' }}
           color="gray.400"
         >
-          ARTWORKS
+          STATUS
         </Text>
       ),
       cell: (info) => (
-        <Text color={textColorSecondary} fontSize="sm" fontWeight="500">
+        <Flex align="center">
+          <Icon
+            w="24px"
+            h="24px"
+            me="5px"
+            color={
+              info.getValue() === 'Approved'
+                ? 'green.500'
+                : info.getValue() === 'Disable'
+                ? 'red.500'
+                : info.getValue() === 'Error'
+                ? 'orange.500'
+                : null
+            }
+            as={
+              info.getValue() === 'Approved'
+                ? MdCheckCircle
+                : info.getValue() === 'Disable'
+                ? MdCancel
+                : info.getValue() === 'Error'
+                ? MdOutlineError
+                : null
+            }
+          />
+          <Text color={textColor} fontSize="sm" fontWeight="700">
+            {info.getValue()}
+          </Text>
+        </Flex>
+      ),
+    }),
+    columnHelper.accessor('date', {
+      id: 'date',
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: '10px', lg: '12px' }}
+          color="gray.400"
+        >
+          DATE
+        </Text>
+      ),
+      cell: (info) => (
+        <Text color={textColor} fontSize="sm" fontWeight="700">
           {info.getValue()}
         </Text>
       ),
     }),
-    columnHelper.accessor('rating', {
-      id: 'rating',
+    columnHelper.accessor('progress', {
+      id: 'progress',
       header: () => (
         <Text
           justifyContent="space-between"
@@ -82,7 +128,7 @@ export default function TopCreatorTable(props) {
           fontSize={{ sm: '10px', lg: '12px' }}
           color="gray.400"
         >
-          RATING
+          PROGRESS
         </Text>
       ),
       cell: (info) => (
@@ -111,27 +157,25 @@ export default function TopCreatorTable(props) {
     debugTable: true,
   });
   return (
-    <Flex
-      direction="column"
+    <Card
+      flexDirection="column"
       w="100%"
+      px="0px"
       overflowX={{ sm: 'scroll', lg: 'hidden' }}
     >
-      <Flex
-        align={{ sm: 'flex-start', lg: 'center' }}
-        justify="space-between"
-        w="100%"
-        px="22px"
-        pb="20px"
-        mb="10px"
-        boxShadow="0px 40px 58px -20px rgba(112, 144, 176, 0.26)"
-      >
-        <Text color={textColor} fontSize="xl" fontWeight="600">
-          Top Creators
+      <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
+        <Text
+          color={textColor}
+          fontSize="22px"
+          fontWeight="700"
+          lineHeight="100%"
+        >
+          Complex Table
         </Text>
-        <Button variant="action">See all</Button>
+        <Menu />
       </Flex>
       <Box>
-        <Table variant="simple" color="gray.500" mt="12px">
+        <Table variant="simple" color="gray.500" mb="24px" mt="12px">
           <Thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <Tr key={headerGroup.id}>
@@ -194,6 +238,8 @@ export default function TopCreatorTable(props) {
           </Tbody>
         </Table>
       </Box>
-    </Flex>
+    </Card>
   );
-}
+};
+
+export default ComplexTable;

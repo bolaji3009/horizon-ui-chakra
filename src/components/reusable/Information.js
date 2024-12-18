@@ -4,7 +4,7 @@ import { Box, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "components/card/Card.js";
 import React from "react";
 
-export default function Information(props) {
+const Information = (props) => {
   const { title, value, ...rest } = props;
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
@@ -22,4 +22,6 @@ export default function Information(props) {
       </Box>
     </Card>
   );
-}
+};
+
+export default Information;
